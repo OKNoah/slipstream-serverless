@@ -1,0 +1,11 @@
+{
+  "query": {
+    "stream": "news",
+    "url": "https://steemit.com/politics/@caitlinjohnstone/modern-liberals-are-1950s-authoritarians"
+  },
+  "requestContext": {
+    "identity": {
+      "cognitoIdentityId": "USER-SUB-1234"
+    }
+  }
+}

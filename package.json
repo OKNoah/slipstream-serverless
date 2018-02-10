@@ -1,0 +1,25 @@
+{
+  "name": "slipstream-serverless",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "aws-sdk": "^2.190.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "webpack": "^3.10.0",
+    "webpack-node-externals": "^1.6.0"
+  },
+  "dependencies": {
+    "image-resolver": "^0.6.1",
+    "mime": "1.6.0",
+    "needle": "^2.1.1",
+    "node-readability": "^3.0.0",
+    "serverless-webpack": "^4.2.0",
+    "sharp": "^0.19.0",
+    "string-strip-html": "^1.2.6",
+    "superagent": "^3.8.2"
+  }
+}

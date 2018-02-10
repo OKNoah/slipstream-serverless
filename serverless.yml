@@ -1,0 +1,32 @@
+service: notes-app-api
+
+# Use serverless-webpack plugin to transpile ES6/ES7
+plugins:
+  - serverless-webpack
+
+# Enable auto-packing of external modules
+custom:
+  webpackIncludeModules: true
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+  stage: prod
+  region: us-east-1
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - s3:PutObject
+      Resource: arn:aws:s3:::slipstream-serverless
+  environment:
+    AWS_BUCKET_NAME: slipstream-serverless
+    AWS_S3_REGION: ap-northeast-1
+    SLS_DEBUG: true
+
+functions:
+  scrape:
+    handler: handler.scrape
+    events:
+      - http:
+          path: notes
+          method: get
