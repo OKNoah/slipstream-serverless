@@ -1,7 +1,7 @@
 {
-  "query": {
+  "queryStringParameters": {
     "stream": "news",
-    "url": "https://steemit.com/politics/@caitlinjohnstone/modern-liberals-are-1950s-authoritarians"
+    "url": "https://www.economist.com/news/asia/21734319-subsidising-parenthood-appears-work-wonders-small-town-japan-doubles-its-fertility-rate"
   },
   "requestContext": {
     "identity": {

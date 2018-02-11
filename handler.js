@@ -5,11 +5,11 @@ import read from 'node-readability'
 import crypto from 'crypto'
 import superagent from 'superagent'
 import mime from 'mime'
-import sharp from 'sharp'
 import AWS from 'aws-sdk'
-import { promisify } from 'util'
 
-const { AWS_BUCKET_NAME, AWS_S3_REGION } = process.env
+const { AWS_BUCKET_NAME, AWS_S3_REGION, NODE_ENV } = process.env
+
+const sharp = NODE_ENV !== 'development' ? eval('require')('./native/sharp') : require('sharp')
 
 const s3Client = new AWS.S3({
   bucket: AWS_BUCKET_NAME,
@@ -23,7 +23,11 @@ imageResolver.register(new ImageResolver.FileExtension())
 imageResolver.register(new ImageResolver.MimeType())
 imageResolver.register(new ImageResolver.Webpage())
 
-const readability = promisify(read)
+const readability = (body) => new Promise(resolve => {
+  read(body, (error, result) => {
+    return resolve(result)
+  })
+})
 
 const imageGetter = (url) => new Promise(resolve => {
   imageResolver.resolve(url, (image) => {
@@ -32,9 +36,7 @@ const imageGetter = (url) => new Promise(resolve => {
 })
 
 export async function scrape (event, context, cb) {
-  const url = event.query.url || event.body.url
-
-  async function getArticle () {
+  async function getArticle (url) {
     var newArticle = {
       images: [],
       format: 'read',
@@ -80,7 +82,14 @@ export async function scrape (event, context, cb) {
   }
 
   try {
-    const article = await getArticle()
+    const url = event.queryStringParameters ? event.queryStringParameters.url : false
+    // const error = `
+    //   <html>
+    //   Give me a url! <br />
+    //   Try <a href="?url=https://lorenzoae.wordpress.com/2017/10/11/on-russia-todays-liberals/amp/">this one</a>!
+    //   </html>
+    // `
+    const article = await getArticle(url)
 
     cb(null, { data: article })
 

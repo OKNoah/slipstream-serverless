@@ -1,25 +1,51 @@
 {
   "name": "slipstream-serverless",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "handler.js",
+  "scripts": {
+    "deploy:rebuild": "./deploy.sh",
+    "deploy": "serverless deploy",
+    "test": "serverless invoke local --function scrape --path mocks/create-event.json",
+    "invoke": "serverless invoke --function scrape --path mocks/create-event.json"
+  },
+  "engines": {
+    "node": ">= 6.10.0"
+  },
   "license": "MIT",
   "devDependencies": {
     "aws-sdk": "^2.190.0",
     "babel-core": "^6.26.0",
-    "babel-loader": "^7.1",
+    "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.1",
     "babel-preset-stage-0": "^6.24.1",
-    "webpack": "^3.10.0",
+    "copy-webpack-plugin": "^4.4.1",
+    "serverless-webpack": "^4.0.0",
+    "webpack": "^3.6.0",
     "webpack-node-externals": "^1.6.0"
   },
   "dependencies": {
+    "babel": "^6.x.x",
+    "babel-polyfill": "^6.26.0",
+    "babel-runtime": "^6.26.0",
+    "decompress": "^4.2.0",
     "image-resolver": "^0.6.1",
+    "json-loader": "0.5.4",
     "mime": "1.6.0",
     "needle": "^2.1.1",
     "node-readability": "^3.0.0",
-    "serverless-webpack": "^4.2.0",
     "sharp": "^0.19.0",
     "string-strip-html": "^1.2.6",
     "superagent": "^3.8.2"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OKNoah/slipstream-serverless.git"
+  },
+  "keywords": [],
+  "author": "Noah Gray",
+  "bugs": {
+    "url": "https://github.com/OKNoah/slipstream-serverless/issues"
+  },
+  "homepage": "https://github.com/OKNoah/slipstream-serverless#readme",
+  "description": ""
 }
